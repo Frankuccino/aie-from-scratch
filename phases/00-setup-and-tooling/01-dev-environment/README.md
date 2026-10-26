@@ -1,35 +1,68 @@
-# Learning Objectives
+# Phase 00 · Checkpoint 01 — Dev Environment Setup
 
-- Set up Python 3.11+, Node.js 20+, and Rust toolchains from scratch
-- Configure virtual environments and package managers for reproducible builds
-- Verify GPU access with CUDA/MPS and run a test tensor operation
-- Understand the four-layer stack: system, packages, runtimes, AI libraries
+Personal walkthrough of the AI Engineering From Scratch curriculum. This phase covers toolchain verification, an isolated Python environment, dependency declaration, locking, and reproducibility.
+
+## Table of Contents
+
+- [Learning Objectives](#learning-objectives)
+- [Checkpoint 1: Toolchain Execution Verification](#checkpoint-1-toolchain-execution-verification)
+  - [Commands to Run for System Audit and Toolchain Verification](#commands-to-run-for-system-audit-and-toolchain-verification)
+    - [Make the Scripts Executable](#make-the-scripts-executable)
+    - [Run the Executables to Validate Script Checks](#run-the-executables-to-validate-script-checks)
+    - [Or simply run the script files using bash like so without doing the 2-steps above](#or-simply-run-the-script-files-using-bash-like-so-without-doing-the-2-steps-above)
+- [Checkpoint 2: Create an isolated Python environment](#checkpoint-2-create-an-isolated-python-environment)
+  - [Step 1 — Initialize your Python project](#step-1--initialize-your-python-project)
+  - [Step 2 — Create the virtual environment](#step-2--create-the-virtual-environment)
+  - [Checkpoint 2.1 — Virtual Environment Created and Verified ✅](#checkpoint-21--virtual-environment-created-and-verified-)
+    - [What have you learned?](#what-have-you-learned)
+  - [Checkpoint 2.2 — Add a Dependency and Generate a Lockfile](#checkpoint-22--add-a-dependency-and-generate-a-lockfile)
+    - [Step 1 — Add NumPy](#step-1--add-numpy)
+    - [Step 2 — Verify the configuration](#step-2--verify-the-configuration)
+    - [Step 3 — Test NumPy](#step-3--test-numpy)
+  - [What we're establishing](#what-were-establishing)
+  - [Checkpoint 2.2 — Dependency Management Verified ✅](#checkpoint-22--dependency-management-verified-)
+    - [What you've achieved](#what-youve-achieved)
+  - [Checkpoint 2.3 — Verify Reproducibility](#checkpoint-23--verify-reproducibility)
+    - [What have we achieved?](#what-have-we-achieved)
+  - [Next: Learning Objective 3](#next-learning-objective-3)
+  - [Completion Criteria](#completion-criteria)
+
+## Learning Objectives
+
+- [ ] Set up Python 3.11+, Node.js 20+, and Rust toolchains from scratch
+- [ ] Configure virtual environments and package managers for reproducible builds
+- [ ] Verify GPU access with CUDA/MPS and run a test tensor operation
+- [ ] Understand the four-layer stack: system, packages, runtimes, AI libraries
 
 ---
 
-# Checkpoint 1: Toolchain Execution Verification.
+## Checkpoint 1: Toolchain Execution Verification.
 
+> [!TIP]
 > This one of the learning objectives that you need to verify before moving to the next steps. Make sure that you complete these steps as it's very straight forward and simply following the ready-to-run script commands in this repo to verify if your existing system and toolchain has the prerequisites in an automated fashion.
 
-## Commands to Run for System Audit and Toolchain Verification
+### Commands to Run for System Audit and Toolchain Verification
 
+> [!NOTE]
 > Make sure you are in the right repository `~/workspace/ai-engineering`.
 
-### Make the Scripts Executable
+#### Make the Scripts Executable
 
 ```zsh
 chmod +x phases/00-setup-and-tooling/01-dev-environment/scripts/test-toolchains.sh
 ```
 
-### Run the Executables to Validate Script Checks
+#### Run the Executables to Validate Script Checks
 
 ```zsh
 phases/00-setup-and-tooling/01-dev-environment/scripts/test-toolchains.sh
 ```
 
-### Or simply run the script files using `bash` like so without doing the 2-steps above
+#### Or simply run the script files using `bash` like so without doing the 2-steps above
 
-`bash phases/00-setup-and-tooling/01-dev-environment/scripts/test-toolchains.sh`
+```zsh
+bash phases/00-setup-and-tooling/01-dev-environment/scripts/test-toolchains.sh
+```
 
 If you were able to get successfull responses with the *toolchain verification*, that means you've completed to **Set up Python 3.11+, Node.js 20+, and Rust toolchains from scratch**
 
@@ -42,11 +75,12 @@ If the verification scripts fail because Python, Node.js, or Rust is not install
 
 After installation, restart your terminal if necessary and rerun the verification scripts.
 
-**Important**: Install only the tools that are missing. If a tool is already installed but the script cannot find it, check your PATH configuration before reinstalling it.
+> [!IMPORTANT]
+> Install only the tools that are missing. If a tool is already installed but the script cannot find it, check your PATH configuration before reinstalling it.
 
 ---
 
-# Checkpoint 2: Create an isolated Python environment.
+## Checkpoint 2: Create an isolated Python environment.
 
 **What we're going to accomplish**
 
@@ -72,7 +106,7 @@ Our target structure
 
 We'll create these as we need them. The `.venv/` directory should remain local to your machine and should not be committed to Git.
 
-## Step 1 — Initialize your Python project
+### Step 1 — Initialize your Python project
 
 First, navigate to the project directory from your repository root:
 
@@ -97,7 +131,7 @@ Why this command?
 
 We're not downgrading Python because we haven't encountered a compatibility issue that justifies doing so.
 
-## Step 2 — Create the virtual environment
+### Step 2 — Create the virtual environment
 
 Run this command from your current 01-dev-environment directory:
 
@@ -131,7 +165,8 @@ You'll have an isolated Python environment associated with your project.
 
 That means you can install project-specific packages without automatically installing them into your global Python environment.
 
-**Important**: Creating a virtual environment doesn't automatically make dependencies reproducible. We'll address dependency declarations and locking in the next checkpoint.
+> [!IMPORTANT]
+> Creating a virtual environment doesn't automatically make dependencies reproducible. We'll address dependency declarations and locking in the next checkpoint.
 
 ---
 
@@ -157,7 +192,8 @@ A virtual environment provides a separate location for a project's Python packag
 
 Your global Python installation remains available, while this project has its own environment. This helps prevent dependencies from different projects from interfering with one another.
 
-> **Note:** One subtle point — the virtual environment uses your existing Python installation as its base. It doesn't install an entirely independent copy of Python.
+> [!NOTE]
+> One subtle point — the virtual environment uses your existing Python installation as its base. It doesn't install an entirely independent copy of Python.
 
 ---
 
@@ -212,7 +248,7 @@ uv run python -c "import numpy; print('NumPy version:', numpy.__version__); prin
 
 Expected output will resemble:
 
-```zsh
+```text
 NumPy version: <installed version>
 [2 4 6]
 ```
@@ -272,6 +308,13 @@ If it succeeds, verify NumPy again:
 
 ```zsh
 uv run --locked python -c "import numpy; print('NumPy:', numpy.__version__); print(numpy.array([1, 2, 3]) * 2)"
+```
+
+Expected output:
+
+```text
+NumPy: 2.5.4
+[2 4 6]
 ```
 
 You should see NumPy version 2.5.4 and the result [2 4 6].
